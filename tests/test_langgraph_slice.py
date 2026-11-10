@@ -81,3 +81,13 @@ def test_bad_args_then_recovery(project):
     assert res["validation"] == "pass"
     ann = json.loads((Path(res["run_dir"]) / "annotations.json").read_text())
     assert any(a["subcategory"] == "tool_error_unknown_column" for a in ann)
+
+
+def test_empty_reply_is_flagged_as_premature_termination(project):
+    root, _ = project
+    script = [tool_msg("read_csv", {"file_name": "sales_data.csv"}), AIMessage(content="", response_metadata={"finish_reason": "stop"})]
+    res = run_one("TASK-001", "langgraph", "fake", root=root, model=ScriptedModel(script), backoff_s=0)
+    assert res["status"] == "completed" and res["validation"] == "fail"
+    ann = json.loads((Path(res["run_dir"]) / "annotations.json").read_text())
+    assert any(a["subcategory"] == "premature_termination_empty_reply" for a in ann)
+    assert any(e.get("meta", {}).get("finish_reason") == "stop" for e in _events(res))

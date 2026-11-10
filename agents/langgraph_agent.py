@@ -44,9 +44,11 @@ def run_langgraph_agent(model, gateway: ToolGateway, collector: TraceCollector, 
                                 error={"code": "PROVIDER_ERROR", "message": str(e)[:300]})
             return {"status": "provider_error", "last_event": ev.event_id}
         calls = list(getattr(resp, "tool_calls", None) or [])
+        finish = (getattr(resp, "response_metadata", None) or {}).get("finish_reason")
         out = collector.emit(
             "llm_response", parent=req.event_id, agent_id=agent_id, content=text_of(resp),
             arguments=[{"name": c["name"], "args": c["args"]} for c in calls] or None, status="ok",
+            meta={"finish_reason": str(finish)} if finish else {},
         )
         update: dict[str, Any] = {"messages": [resp], "steps": state["steps"] + 1, "last_event": out.event_id}
         if not calls:

@@ -58,6 +58,11 @@ def detect_candidates(events: list[Event], validation: dict, run_status: str) ->
     if run_status == "provider_error":
         ids = [e.event_id for e in events if e.type == "error"][-1:]
         add(ids, "environment_system", "provider_error", "high", "medium")
+    if run_status == "completed":
+        fa = [e for e in events if e.type == "final_answer"]
+        if fa and not (fa[-1].content or "").strip():
+            add([fa[-1].event_id], "planning_reasoning", "premature_termination_empty_reply", "high", "medium",
+                "Agent stopped with an empty reply before finishing. Check finish_reason on the llm_response just before.")
     if validation.get("status") == "fail":
         fa = [e.event_id for e in events if e.type == "final_answer"]
         add(fa[-1:] or [events[-1].event_id] if events else [], "unknown_uncertain", "output_validation_failed",
