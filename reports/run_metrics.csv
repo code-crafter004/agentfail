@@ -1,0 +1,15 @@
+run_id,task_id,framework,model_name,model_id,repetition,status,infra_error,validation,completion_claim,false_success,llm_steps,tool_calls,schema_invalid_calls,repeated_calls,agent_tool_errors,injected_faults,first_error_step,recovery_eligible,recovery_resolved,provider_retries,duration_s,failure_candidates,categories
+TASK-001_langgraph_gemini_20261110-071052_6b82,TASK-001,langgraph,,gemini-2.5-flash,1,completed,False,pass,False,False,4,3,0,0,0,0,,0,0,0,11.46,0,
+TASK-001_langgraph_gemini_20261110-073256_efa1,TASK-001,langgraph,gemini,gemini-2.5-flash,1,provider_error,True,infra_error,False,False,0,0,0,0,0,0,,0,0,2,119.38,2,environment_system:1;unknown_uncertain:1
+TASK-001_langgraph_gemini_20261110-073737_6c89,TASK-001,langgraph,gemini,gemini-2.5-flash,1,provider_error,True,infra_error,False,False,0,0,0,0,0,0,,0,0,2,125.32,2,environment_system:1;unknown_uncertain:1
+TASK-001_langgraph_groq_20261110-071105_fe6c,TASK-001,langgraph,,openai/gpt-oss-120b,1,completed,False,pass,False,False,4,3,0,0,0,0,,0,0,0,3.63,0,
+TASK-001_langgraph_groq_20261110-073502_c6a3,TASK-001,langgraph,groq,openai/gpt-oss-120b,1,completed,False,pass,True,False,4,3,0,0,0,0,,0,0,0,4.86,0,
+TASK-002_langgraph_gemini_20261110-072638_25e8,TASK-002,langgraph,gemini,gemini-2.5-flash,1,completed,False,pass,True,False,4,3,0,0,0,0,,0,0,0,8.59,0,
+TASK-002_langgraph_groq_20261110-072628_8ea5,TASK-002,langgraph,groq,openai/gpt-oss-120b,1,completed,False,pass,True,False,4,3,0,0,0,0,,0,0,0,3.58,0,
+TASK-003_langgraph_gemini_20261110-072902_232e,TASK-003,langgraph,gemini,gemini-2.5-flash,1,provider_error,True,infra_error,False,False,4,4,0,2,0,2,,1,1,4,228.75,4,environment_system:3;verification_recovery:1
+TASK-003_langgraph_gemini_20261110-073530_f70c,TASK-003,langgraph,gemini,gemini-2.5-flash,1,provider_error,True,infra_error,False,False,0,0,0,0,0,0,,0,0,2,120.88,2,environment_system:1;unknown_uncertain:1
+TASK-003_langgraph_groq_20261110-072754_93b7,TASK-003,langgraph,groq,openai/gpt-oss-120b,1,completed,False,pass,True,False,5,4,0,2,0,2,,1,1,0,3.26,3,environment_system:2;verification_recovery:1
+TASK-004_langgraph_gemini_20261110-072803_9783,TASK-004,langgraph,gemini,gemini-2.5-flash,1,completed,False,pass,True,False,3,2,0,0,0,0,,0,0,0,6.6,0,
+TASK-004_langgraph_groq_20261110-072619_cc4f,TASK-004,langgraph,groq,openai/gpt-oss-120b,1,completed,False,fail,True,True,3,2,0,0,0,0,,0,0,0,2.66,2,unknown_uncertain:1;verification_recovery:1
+TASK-005_langgraph_gemini_20261110-072652_7375,TASK-005,langgraph,gemini,gemini-2.5-flash,1,completed,False,pass,True,False,6,8,0,0,0,0,,0,0,0,55.69,0,
+TASK-005_langgraph_groq_20261110-072816_4e7f,TASK-005,langgraph,groq,openai/gpt-oss-120b,1,completed,False,pass,False,False,9,8,0,0,0,0,,0,0,1,39.57,0,

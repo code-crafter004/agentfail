@@ -9,7 +9,7 @@ from langchain_core.messages import AIMessage
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from sample_data.make_sales_data import generate  # noqa: E402
+from sample_data.make_all import generate_all  # noqa: E402
 
 
 class ScriptedModel:
@@ -36,5 +36,5 @@ def tool_msg(name, args, id="1"):
 def project(tmp_path):
     """A temp project root with tasks, generated data and hidden ground truth."""
     shutil.copytree(ROOT / "benchmark_tasks", tmp_path / "benchmark_tasks")
-    truth = generate(tmp_path / "sample_data", tmp_path / "ground_truth")
-    return tmp_path, truth
+    truths = generate_all(tmp_path / "sample_data", tmp_path / "ground_truth")
+    return tmp_path, truths["TASK-001"]

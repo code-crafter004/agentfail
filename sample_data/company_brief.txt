@@ -1,0 +1,8 @@
+Northwind Learning Pvt Ltd: Company Brief
+
+Northwind Learning was founded in 2009 in Pune and is headquartered in Bengaluru.
+As of March 2025 the company employs 480 people across 3 offices.
+Revenue for fiscal year 2024-25 was INR 62.4 crore, up from INR 51.8 crore the previous year.
+The company serves 214 institutional customers. Its main product is an adaptive learning platform used in schools.
+In 2024 the company opened a new office in Hyderabad.
+The board of directors meets quarterly.

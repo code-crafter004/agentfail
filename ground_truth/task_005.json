@@ -1,0 +1,17 @@
+{
+  "task_id": "TASK-005",
+  "region_totals": {
+    "East": 9953.96,
+    "North": 12108.48,
+    "South": 10228.74,
+    "West": 11515.21
+  },
+  "total": 43806.39,
+  "shares": {
+    "East": 22.72,
+    "North": 27.64,
+    "South": 23.35,
+    "West": 26.29
+  },
+  "top_region": "North"
+}

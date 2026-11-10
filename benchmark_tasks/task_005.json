@@ -1,0 +1,26 @@
+{
+  "task_id": "TASK-005",
+  "version": "1.0",
+  "title": "Regional Revenue Share",
+  "domain": "data_analysis",
+  "difficulty": "hard",
+  "instructions": "Using sales_data.csv, calculate the total revenue of each region, then calculate each region's share of overall revenue as a percentage with two decimal places. Write a report named regional_report.md that lists each region's total revenue and share, and states which region has the highest revenue.",
+  "input_files": [
+    "sales_data.csv"
+  ],
+  "allowed_tools": [
+    "read_csv",
+    "aggregate_revenue",
+    "calculate",
+    "write_report"
+  ],
+  "constraints": [
+    "Use only the supplied data",
+    "Do not round totals"
+  ],
+  "expected_output_ref": "ground_truth/task_005.json",
+  "validator": "validate_regional_share",
+  "fault_schedule": {},
+  "maximum_steps": 12,
+  "maximum_retries": 2
+}

@@ -27,7 +27,7 @@ def _ver(pkg: str) -> str:
 
 
 def run_one(task_id: str, framework: str, model_name: str, root: str | Path = ".", model=None,
-            model_info: dict | None = None, backoff_s: float = 3.0) -> dict:
+            model_info: dict | None = None, backoff_s: float = 3.0, rep: int = 1) -> dict:
     root = Path(root).resolve()
     if framework not in FRAMEWORKS:
         raise ValueError(f"framework must be one of {FRAMEWORKS}")
@@ -53,7 +53,7 @@ def run_one(task_id: str, framework: str, model_name: str, root: str | Path = ".
     meta = RunMetadata(
         run_id=run_id, task_id=task.task_id, task_version=task.version, framework=framework,
         framework_version=_ver(framework if framework != "langgraph" else "langgraph"),
-        provider=model_info["provider"], model_id=model_info["model_id"],
+        provider=model_info["provider"], model_name=model_name, model_id=model_info["model_id"], repetition=rep,
         prompt_version=PROMPT_VERSION, prompt_hash=prompt_hash(task),
         max_steps=task.maximum_steps, max_retries=task.maximum_retries,
         tool_versions={t: TOOL_VERSION for t in task.allowed_tools},
@@ -79,8 +79,8 @@ def run_one(task_id: str, framework: str, model_name: str, root: str | Path = ".
     collector.emit("run_end", content=outcome["status"], status="ok" if outcome["status"] == "completed" else "error")
 
     truth = json.loads((root / task.expected_output_ref).read_text(encoding="utf-8"))
-    validation = VALIDATORS[task.validator](ws_out, truth, outcome.get("final_answer"))
     events = read_events(collector.path)
+    validation = VALIDATORS[task.validator](ws_out, truth, outcome.get("final_answer"), events)
     annotations = detect_candidates(events, validation, outcome["status"])
 
     meta.status = outcome["status"]

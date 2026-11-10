@@ -1,0 +1,25 @@
+{
+  "task_id": "TASK-004",
+  "required_sections": [
+    "Overview",
+    "Key Figures",
+    "Risks"
+  ],
+  "required_facts": [
+    "2009",
+    "480",
+    "62.4",
+    "214"
+  ],
+  "source_numbers": [
+    3.0,
+    25.0,
+    51.8,
+    62.4,
+    214.0,
+    480.0,
+    2009.0,
+    2024.0,
+    2025.0
+  ]
+}

@@ -13,9 +13,9 @@ import time
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Literal, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from tracing.collector import TraceCollector
 
@@ -62,7 +62,25 @@ class MockApiArgs(_Args):
     payload: dict = {}
 
 
+class ReadTextArgs(_Args):
+    file_name: str
+
+
+class Condition(_Args):
+    column: str
+    operator: Literal["eq", "neq", "gt", "gte", "lt", "lte", "contains"]
+    value: Union[str, int, float]
+
+
+class FilterArgs(_Args):
+    file_name: str
+    conditions: list[Condition] = Field(min_length=1)
+    output_file: str
+
+
 ARG_MODELS = {
+    "read_text": ReadTextArgs,
+    "filter_csv": FilterArgs,
     "read_csv": ReadCsvArgs,
     "aggregate_revenue": AggregateArgs,
     "calculate": CalcArgs,
@@ -81,6 +99,35 @@ def _spec(name: str, description: str, props: dict, required: list[str]) -> dict
 
 _S = {"type": "string"}
 TOOL_SPECS = {
+    "read_text": _spec(
+        "read_text",
+        "Read an input text document. Returns the text (first 8000 characters).",
+        {"file_name": {**_S, "description": "Input file name, e.g. brief.txt"}},
+        ["file_name"],
+    ),
+    "filter_csv": _spec(
+        "filter_csv",
+        "Keep the rows of an input CSV that match ALL conditions and save them as a CSV in the output directory. "
+        "Operators: eq, neq, gt (strictly greater), gte (greater or equal), lt, lte, contains. Returns the matched row count.",
+        {
+            "file_name": {**_S, "description": "Input CSV file name"},
+            "conditions": {
+                "type": "array",
+                "description": "All conditions must match",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "column": {**_S, "description": "Column name"},
+                        "operator": {**_S, "description": "eq, neq, gt, gte, lt, lte or contains"},
+                        "value": {**_S, "description": "Value to compare with"},
+                    },
+                    "required": ["column", "operator", "value"],
+                },
+            },
+            "output_file": {**_S, "description": "Output CSV file name, e.g. subset.csv"},
+        },
+        ["file_name", "conditions", "output_file"],
+    ),
     "read_csv": _spec(
         "read_csv",
         f"Read an input CSV file. Returns column names, row count and the first {MAX_PREVIEW_ROWS} rows.",
@@ -277,6 +324,29 @@ class ToolGateway:
                     raise ToolError("BAD_VALUE", f"Non numeric value in column {a.value_column}")
         return {"groups": {k: float(v.quantize(Decimal("0.01"))) for k, v in sorted(totals.items())}}
 
+    def _t_read_text(self, a: ReadTextArgs) -> dict:
+        p = self._safe(self.input_dir, a.file_name, True)
+        text = p.read_text(encoding="utf-8", errors="replace")
+        return {"text": text[:8000], "truncated": len(text) > 8000}
+
+    def _t_filter_csv(self, a: FilterArgs) -> dict:
+        p = self._safe(self.input_dir, a.file_name, True)
+        if Path(a.output_file).suffix.lower() != ".csv":
+            raise ToolError("PATH_DENIED", "Output file must be a .csv")
+        out = self._safe(self.output_dir, a.output_file, False)
+        with open(p, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            cols = reader.fieldnames or []
+            for c in a.conditions:
+                if c.column not in cols:
+                    raise ToolError("UNKNOWN_COLUMN", f"Requested column {c.column} is absent")
+            matched = [r for r in reader if all(_match(r[c.column], c.operator, c.value) for c in a.conditions)]
+        with open(out, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=cols)
+            w.writeheader()
+            w.writerows(matched)
+        return {"matched": len(matched), "written": a.output_file, "columns": cols}
+
     def _t_calculate(self, a: CalcArgs) -> dict:
         return {"value": safe_eval(a.expression)}
 
@@ -294,6 +364,25 @@ class ToolGateway:
         if a.endpoint not in MOCK_ENDPOINTS:
             raise ToolError("NOT_FOUND", f"Endpoint {a.endpoint} not found (404)")
         return {"endpoint": a.endpoint, "data": MOCK_ENDPOINTS[a.endpoint]}
+
+
+def _num(x: Any) -> Optional[float]:
+    try:
+        return float(str(x).strip())
+    except ValueError:
+        return None
+
+
+def _match(cell: str, op: str, value: Any) -> bool:
+    a, b = _num(cell), _num(value)
+    if op in ("eq", "neq"):
+        eq = (a == b) if (a is not None and b is not None) else str(cell).strip().lower() == str(value).strip().lower()
+        return eq if op == "eq" else not eq
+    if op == "contains":
+        return str(value).strip().lower() in str(cell).lower()
+    if a is None or b is None:
+        raise ToolError("BAD_VALUE", f"Operator {op} needs numeric values")
+    return {"gt": a > b, "gte": a >= b, "lt": a < b, "lte": a <= b}[op]
 
 
 def _ms(start: float) -> float:

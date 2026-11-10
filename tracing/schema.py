@@ -43,7 +43,10 @@ class RunMetadata(BaseModel):
     framework: str
     framework_version: str
     provider: str
+    model_name: str = ""
     model_id: str
+    repetition: int = 1
+    condition: str = "base"
     prompt_version: str
     prompt_hash: str
     max_steps: int

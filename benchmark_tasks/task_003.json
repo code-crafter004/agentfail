@@ -1,0 +1,28 @@
+{
+  "task_id": "TASK-003",
+  "version": "1.0",
+  "title": "API Tool Recovery",
+  "domain": "tool_use",
+  "difficulty": "medium",
+  "instructions": "Fetch the order summary from the internal API endpoint /sales/summary and write summary.md stating the total number of orders and the currency. The API can fail temporarily, so retry when it does, but make no more than 4 retries.",
+  "input_files": [],
+  "allowed_tools": [
+    "mock_api_request",
+    "write_report"
+  ],
+  "constraints": [
+    "Report only values returned by the API",
+    "Do not guess values if the API keeps failing"
+  ],
+  "expected_output_ref": "ground_truth/task_003.json",
+  "validator": "validate_api_summary",
+  "fault_schedule": {
+    "mock_api_request": {
+      "fail_first_n": 2,
+      "error_code": "TIMEOUT",
+      "message": "Request timed out"
+    }
+  },
+  "maximum_steps": 10,
+  "maximum_retries": 2
+}

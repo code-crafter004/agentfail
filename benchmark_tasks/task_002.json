@@ -1,0 +1,26 @@
+{
+  "task_id": "TASK-002",
+  "version": "1.0",
+  "title": "Customer Filtering",
+  "domain": "data_processing",
+  "difficulty": "medium",
+  "instructions": "From customers.csv, find all active customers in Bengaluru who are on the premium plan and are older than 30. Save them to a file named filtered_customers.csv, and write summary.md stating how many customers matched.",
+  "input_files": [
+    "customers.csv"
+  ],
+  "allowed_tools": [
+    "read_csv",
+    "filter_csv",
+    "calculate",
+    "write_report"
+  ],
+  "constraints": [
+    "Use only the supplied data",
+    "Do not invent or edit customer records"
+  ],
+  "expected_output_ref": "ground_truth/task_002.json",
+  "validator": "validate_customer_filter",
+  "fault_schedule": {},
+  "maximum_steps": 10,
+  "maximum_retries": 2
+}

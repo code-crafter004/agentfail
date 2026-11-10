@@ -1,0 +1,24 @@
+{
+  "task_id": "TASK-004",
+  "version": "1.0",
+  "title": "Constraint Report from Document",
+  "domain": "document_analysis",
+  "difficulty": "medium",
+  "instructions": "Read company_brief.txt and write a report named report.md with exactly three sections titled Overview, Key Figures and Risks. State figures exactly as given in the document. If the document gives no information for a section, say that it is not stated in the document.",
+  "input_files": [
+    "company_brief.txt"
+  ],
+  "allowed_tools": [
+    "read_text",
+    "write_report"
+  ],
+  "constraints": [
+    "Use only facts from the document",
+    "Do not add numbers or facts that are not in the document"
+  ],
+  "expected_output_ref": "ground_truth/task_004.json",
+  "validator": "validate_constraint_report",
+  "fault_schedule": {},
+  "maximum_steps": 8,
+  "maximum_retries": 2
+}
