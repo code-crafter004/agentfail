@@ -1,0 +1,16 @@
+{
+  "task_id": "TASK-001",
+  "version": "1.0",
+  "title": "Monthly Sales Analysis",
+  "domain": "data_analysis",
+  "difficulty": "easy",
+  "instructions": "Calculate the total revenue for each month from sales_data.csv, identify the month with the highest revenue, and write a report named sales_report.md. The report must list every month's total revenue with two decimal places and state which month had the highest revenue. When you are finished, reply with a short summary.",
+  "input_files": ["sales_data.csv"],
+  "allowed_tools": ["read_csv", "aggregate_revenue", "calculate", "write_report"],
+  "constraints": ["Use only the supplied data", "Do not invent missing values"],
+  "expected_output_ref": "ground_truth/task_001.json",
+  "validator": "validate_sales_report",
+  "fault_schedule": {},
+  "maximum_steps": 10,
+  "maximum_retries": 2
+}
