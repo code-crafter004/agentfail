@@ -34,9 +34,9 @@ def run_one(task_id: str, framework: str, model_name: str, root: str | Path = ".
     task = load_task(root, task_id)
 
     if model is None:
-        from models.providers import get_chat_model
+        from models.providers import get_chat_model, get_crewai_llm
 
-        model, model_info = get_chat_model(model_name)
+        model, model_info = (get_crewai_llm if framework == "crewai" else get_chat_model)(model_name)
     model_info = model_info or {"provider": "custom", "model_id": model_name}
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")

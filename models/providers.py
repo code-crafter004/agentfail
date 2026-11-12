@@ -31,3 +31,26 @@ def get_chat_model(name: str):
         mid = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
         return ChatOllama(model=mid, temperature=0), {"provider": "ollama_local", "model_id": mid}
     raise ValueError(f"Unknown model '{name}'. Use gemini, groq or ollama")
+
+
+def get_crewai_llm(name: str):
+    """Return (crewai LLM, info dict). Same model IDs as get_chat_model, built with CrewAI's native providers.
+    Groq is reached through its OpenAI compatible endpoint, so no litellm install is needed."""
+    from crewai import LLM
+
+    if name == "gemini":
+        mid = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        llm = LLM(model=f"gemini/{mid}", api_key=os.getenv("GEMINI_API_KEY"), temperature=0)
+        return llm, {"provider": "google_ai_studio", "model_id": mid}
+    if name == "groq":
+        mid = os.getenv("GROQ_MODEL")
+        if not mid:
+            raise RuntimeError("GROQ_MODEL is not set in .env")
+        llm = LLM(model=f"openai/{mid}", base_url="https://api.groq.com/openai/v1",
+                  api_key=os.getenv("GROQ_API_KEY"), temperature=0, custom_openai=True)
+        return llm, {"provider": "groq", "model_id": mid}
+    if name == "ollama":
+        mid = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
+        llm = LLM(model=f"ollama/{mid}", base_url="http://localhost:11434", temperature=0)
+        return llm, {"provider": "ollama_local", "model_id": mid}
+    raise ValueError(f"Unknown model '{name}'. Use gemini, groq or ollama")
