@@ -13,8 +13,7 @@ try:
     import plotly.express as px
 except Exception:  # plotly is optional
     px = None
-
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 RESULTS, REPORTS = ROOT / "results", ROOT / "reports"
 st.set_page_config(page_title="AgentFail", layout="wide")
 
