@@ -1,0 +1,48 @@
+[
+  {
+    "failure_id": "F-01",
+    "evidence_event_ids": [
+      "EV-005"
+    ],
+    "category": "environment_system",
+    "subcategory": "injected_fault",
+    "severity": "low",
+    "attribution_confidence": "high",
+    "source": "rule",
+    "reviewer": null,
+    "reviewer_verdict": null,
+    "note": "Injected by benchmark, not an agent error",
+    "annotation_version": "1"
+  },
+  {
+    "failure_id": "F-02",
+    "evidence_event_ids": [
+      "EV-009"
+    ],
+    "category": "environment_system",
+    "subcategory": "injected_fault",
+    "severity": "low",
+    "attribution_confidence": "high",
+    "source": "rule",
+    "reviewer": null,
+    "reviewer_verdict": null,
+    "note": "Injected by benchmark, not an agent error",
+    "annotation_version": "1"
+  },
+  {
+    "failure_id": "F-03",
+    "evidence_event_ids": [
+      "EV-005",
+      "EV-009"
+    ],
+    "category": "verification_recovery",
+    "subcategory": "repeated_identical_failed_call",
+    "severity": "medium",
+    "attribution_confidence": "medium",
+    "source": "rule",
+    "reviewer": null,
+    "reviewer_verdict": null,
+    "note": null,
+    "annotation_version": "1"
+  }
+]

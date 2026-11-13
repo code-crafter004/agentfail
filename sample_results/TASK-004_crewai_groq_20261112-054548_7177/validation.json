@@ -1,0 +1,23 @@
+{
+  "status": "fail",
+  "satisfied_conditions": [],
+  "failed_conditions": [
+    "report_exists"
+  ],
+  "expected": {
+    "required_sections": [
+      "Overview",
+      "Key Figures",
+      "Risks"
+    ],
+    "required_facts": [
+      "2009",
+      "480",
+      "62.4",
+      "214"
+    ]
+  },
+  "actual": {},
+  "completion_claim": false,
+  "false_success": false
+}

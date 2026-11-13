@@ -1,0 +1,30 @@
+{
+  "status": "pass",
+  "satisfied_conditions": [
+    "report_exists",
+    "required_sections_present",
+    "required_facts_present",
+    "no_unsupported_numbers"
+  ],
+  "failed_conditions": [],
+  "expected": {
+    "required_sections": [
+      "Overview",
+      "Key Figures",
+      "Risks"
+    ],
+    "required_facts": [
+      "2009",
+      "480",
+      "62.4",
+      "214"
+    ]
+  },
+  "actual": {
+    "missing_sections": [],
+    "missing_facts": [],
+    "unsupported_numbers": []
+  },
+  "completion_claim": true,
+  "false_success": false
+}

@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "satisfied_conditions": [
+    "summary_exists",
+    "total_orders_correct",
+    "currency_stated",
+    "retries_bounded",
+    "api_was_called"
+  ],
+  "failed_conditions": [],
+  "expected": {
+    "total_orders": 1240,
+    "currency": "INR",
+    "max_api_calls": 5
+  },
+  "actual": {
+    "api_calls": 3
+  },
+  "completion_claim": false,
+  "false_success": false
+}

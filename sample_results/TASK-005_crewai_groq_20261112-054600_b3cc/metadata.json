@@ -1,0 +1,33 @@
+{
+  "run_id": "TASK-005_crewai_groq_20261112-054600_b3cc",
+  "task_id": "TASK-005",
+  "task_version": "1.0",
+  "framework": "crewai",
+  "framework_version": "1.15.39",
+  "provider": "groq",
+  "model_name": "groq",
+  "model_id": "openai/gpt-oss-20b",
+  "repetition": 1,
+  "condition": "base",
+  "prompt_version": "1.0",
+  "prompt_hash": "043a64bc2148",
+  "max_steps": 12,
+  "max_retries": 2,
+  "tool_versions": {
+    "read_csv": "1.0",
+    "aggregate_revenue": "1.0",
+    "calculate": "1.0",
+    "write_report": "1.0"
+  },
+  "dependency_versions": {
+    "langgraph": "1.2.20",
+    "langchain-core": "1.7.7",
+    "crewai": "1.15.39",
+    "pydantic": "2.12.5"
+  },
+  "started_at": "2026-11-12T05:46:00.155+00:00",
+  "ended_at": "2026-11-12T05:46:00.156+00:00",
+  "status": "crashed",
+  "steps": 0,
+  "final_answer": null
+}

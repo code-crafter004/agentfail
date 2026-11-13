@@ -1,0 +1,31 @@
+{
+  "run_id": "TASK-003_langgraph_groq_20261110-085602_6803",
+  "task_id": "TASK-003",
+  "task_version": "1.0",
+  "framework": "langgraph",
+  "framework_version": "1.2.20",
+  "provider": "groq",
+  "model_name": "groq",
+  "model_id": "openai/gpt-oss-20b",
+  "repetition": 2,
+  "condition": "base",
+  "prompt_version": "1.0",
+  "prompt_hash": "faf080960365",
+  "max_steps": 10,
+  "max_retries": 2,
+  "tool_versions": {
+    "mock_api_request": "1.0",
+    "write_report": "1.0"
+  },
+  "dependency_versions": {
+    "langgraph": "1.2.20",
+    "langchain-core": "1.7.7",
+    "crewai": "1.15.39",
+    "pydantic": "2.12.5"
+  },
+  "started_at": "2026-11-10T08:56:02.435+00:00",
+  "ended_at": "2026-11-10T08:56:25.889+00:00",
+  "status": "completed",
+  "steps": 5,
+  "final_answer": "Summary written to **summary.md**."
+}

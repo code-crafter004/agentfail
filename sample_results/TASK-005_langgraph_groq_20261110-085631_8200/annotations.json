@@ -1,0 +1,17 @@
+[
+  {
+    "failure_id": "F-01",
+    "evidence_event_ids": [
+      "EV-024"
+    ],
+    "category": "unknown_uncertain",
+    "subcategory": "output_validation_failed",
+    "severity": "high",
+    "attribution_confidence": "unknown",
+    "source": "rule",
+    "reviewer": null,
+    "reviewer_verdict": null,
+    "note": "Final output failed validation. Needs manual review to find the cause.",
+    "annotation_version": "1"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "run_id": "TASK-001_crewai_groq_20261112-054831_9eeb",
+  "task_id": "TASK-001",
+  "task_version": "1.0",
+  "framework": "crewai",
+  "framework_version": "1.15.39",
+  "provider": "groq",
+  "model_name": "groq",
+  "model_id": "openai/gpt-oss-20b",
+  "repetition": 1,
+  "condition": "base",
+  "prompt_version": "1.0",
+  "prompt_hash": "dff985190111",
+  "max_steps": 10,
+  "max_retries": 2,
+  "tool_versions": {
+    "read_csv": "1.0",
+    "aggregate_revenue": "1.0",
+    "calculate": "1.0",
+    "write_report": "1.0"
+  },
+  "dependency_versions": {
+    "langgraph": "1.2.20",
+    "langchain-core": "1.7.7",
+    "crewai": "1.15.39",
+    "pydantic": "2.12.5"
+  },
+  "started_at": "2026-11-12T05:48:31.544+00:00",
+  "ended_at": "2026-11-12T05:48:35.469+00:00",
+  "status": "completed",
+  "steps": 4,
+  "final_answer": "# Sales Report\n\n## Monthly Revenue Totals\n- **2025-01**: $4,742.25\n- **2025-02**: $8,110.78\n- **2025-03**: $7,193.45\n- **2025-04**: $7,866.89\n- **2025-05**: $7,041.63\n- **2025-06**: $8,851.39\n\n## Highest Revenue\nThe month with the highest revenue is **2025-06** with a total of $8,851.39."
+}
